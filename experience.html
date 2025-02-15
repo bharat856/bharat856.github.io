@@ -15,13 +15,12 @@
             overflow-x: hidden;
         }
 
-        /* 3D Effect Canvas */
-        #backgroundCanvas {
+        /* Full-screen Stars Container */
+        .stars-container {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100vw;
             height: 100vh;
+            overflow: hidden;
             z-index: -1;
         }
 
@@ -60,7 +59,7 @@
         }
 
         nav ul li a:hover {
-            color: #ff0000; /* Red Hover Effect */
+            color: #ff0000;
             transform: scale(1.1);
         }
 
@@ -70,6 +69,8 @@
             text-align: left;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
@@ -80,7 +81,7 @@
         h2 {
             font-size: 1.8em;
             margin-top: 20px;
-            color: #ff0000; /* Red for job titles */
+            color: #ff0000;
         }
 
         ul {
@@ -104,6 +105,53 @@
 
         a:visited {
             color: white;
+        }
+
+        /* Twinkling Stars Effect */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+
+        /* Moon and Moon Shadow */
+        .moon-container {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #bbb);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+        }
+
+        .moon-shadow {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background: black;
+            border-radius: 50%;
+            animation: moonPhase 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes moonPhase {
+            0% { left: 100%; }  /* Full Moon */
+            25% { left: 75%; }  /* Waning Gibbous */
+            50% { left: 50%; }  /* Half Moon */
+            75% { left: 25%; }  /* Crescent */
+            100% { left: 0; }   /* New Moon */
         }
 
         /* Responsive Layout */
@@ -132,10 +180,13 @@
             <li><a href="aboutMe.html">About Me</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="resume.html">Resume</a></li>
-			<li><a href="resources.html"> Resources</a>
+            <li><a href="resources.html">Resources</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
+
+    <!-- Stars Background -->
+    <div class="stars-container"></div>
 
     <!-- Work Experience Section -->
     <div class="experience">
@@ -157,7 +208,6 @@
             <li>Built a <strong>database bridge</strong> to unify multiple databases for seamless operations.</li>
             <li>Enhanced API capabilities by modifying <strong>query parameters</strong>, expanding URL handling from <strong>34 inputs to 750 inputs.</strong></li>
         </ul>
-
         <h2>Student Intern - SenseSemi, India</h2>
         <ul>
             <li>Worked with <strong>AWS, Android Studio, and Figma</strong>, mastering essential tools.</li>
@@ -165,48 +215,39 @@
         </ul>
     </div>
 
-    <!-- 3D Wireframe Effect -->
-    <canvas id="backgroundCanvas"></canvas>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Twinkling Stars Effect -->
     <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("backgroundCanvas"), alpha: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        function createStars() {
+            const numStars = 150; // Increased to cover the full background
+            const container = document.querySelector(".stars-container");
+            
+            for (let i = 0; i < numStars; i++) {
+                let star = document.createElement("div");
+                star.classList.add("star");
+                container.appendChild(star);
 
-        // Create Outer Wireframe
-        const outerGeometry = new THREE.IcosahedronGeometry(3, 1);
-        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
-        const outerWireframe = new THREE.Mesh(outerGeometry, wireframeMaterial);
-        scene.add(outerWireframe);
+                let size = Math.random() * 4 + 1;
+                let duration = Math.random() * 4 + 2;
+                let delay = Math.random() * 5;
+                let left = Math.random() * 100;
+                let top = Math.random() * 100;
 
-        // Create Inner Wireframe
-        const innerGeometry = new THREE.IcosahedronGeometry(1.5, 1);
-        const innerWireframe = new THREE.Mesh(innerGeometry, wireframeMaterial);
-        scene.add(innerWireframe);
-
-        camera.position.z = 6;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            outerWireframe.rotation.x += 0.005;
-            outerWireframe.rotation.y += 0.007;
-            innerWireframe.rotation.x -= 0.008;
-            innerWireframe.rotation.y -= 0.005;
-            renderer.render(scene, camera);
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}vw`;
+                star.style.top = `${top}vh`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${delay}s`;
+            }
         }
 
-        animate();
-
-        window.addEventListener("resize", () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
+        createStars();
     </script>
+
+    <!-- Animated Moon -->
+    <div class="moon-container">
+        <div class="moon-shadow"></div>
+    </div>
 
 </body>
 </html>
