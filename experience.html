@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience - Bharat Puri</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Canvas for Falling Code Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            flex: 1;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff0000; /* Red Hover Effect */
+            transform: scale(1.1);
+        }
+
+        /* Work Experience Section */
+        .experience {
+            padding: 120px 10%;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 20px;
+            color: #ff0000; /* Red for job titles */
+        }
+
+        ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        li {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff0000;
+        }
+
+        a:visited {
+            color: white;
+        }
+
+        /* Responsive Layout */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .experience {
+                padding: 100px 5%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutMe.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Work Experience Section -->
+    <div class="experience">
+        <h1>Work Experience</h1>
+
+        <h2>Research Assistant - Hochschule der Medien, Stuttgart</h2>
+        <ul>
+            <li>Developed a <strong>prediction model using Neural Networks</strong> for real-time deployment.</li>
+            <li>Synthesized data by following the <strong>probability distribution</strong> to improve model accuracy.</li>
+            <li>Designed and trained the model to <strong>detect patterns and make accurate predictions.</strong></li>
+            <li>Optimized AI models for <strong>scalability and efficiency.</strong></li>
+        </ul>
+
+        <h2>Software Engineer - Eurofins IT Solutions, India</h2>
+        <ul>
+            <li>Increased <strong>code coverage from 60% to 92%</strong>, improving project reliability.</li>
+            <li>Developed and implemented <strong>5 out of 6 GET functionalities</strong> for API integration.</li>
+            <li>Integrated the API with <strong>WPF UI</strong>, improving project speed by <strong>33%</strong> over legacy systems.</li>
+            <li>Built a <strong>database bridge</strong> to unify multiple databases for seamless operations.</li>
+            <li>Enhanced API capabilities by modifying <strong>query parameters</strong>, expanding URL handling from <strong>34 inputs to 750 inputs.</strong></li>
+        </ul>
+
+        <h2>Student Intern - SenseSemi, India</h2>
+        <ul>
+            <li>Worked with <strong>AWS, Android Studio, and Figma</strong>, mastering essential tools.</li>
+            <li>Designed and optimized <strong>feature workflows</strong> in Figma, increasing <strong>user engagement by 15%.</strong></li>
+        </ul>
+    </div>
+
+    <!-- Falling Code Effect -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Set Canvas Size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Matrix Characters
+        const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>/*+-=";
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(0);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Slightly faded background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#FF0000"; // Bright Red for falling code effect
+            ctx.font = `${fontSize}px Courier New`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>

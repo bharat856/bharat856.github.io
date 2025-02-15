@@ -1,154 +1,177 @@
-<!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Bharat Puri</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css"/>
-		
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Puri - Research Assistant</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
 
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+        /* Canvas for Matrix Effect */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        /* Navbar Styling */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            text-align: center;
+        }
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<!-- <span class="logo"><img src="images/logo.svg" alt="" /></span> -->
-						<h1>Bharat Puri</h1>
-						<p>.NET Full-Stack Developer<br />
-						built by <a href="https://github.com/bharat856">Bharat</a>.</p><!--for <a href="https://html5up.net">HTML5 UP</a> -->
-					</header>
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="#about_me" class="active">About Me</a></li>
-							<li><a href="resume.html">Resume/CV</a></li>
-							<li><a href="#projects">Projects</a></li>
-							<li><a href="#reso">Resources</a></li>
-						</ul>
-					</nav>
+        nav ul li {
+            flex: 1;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
 
-						<!-- Introduction -->
-							<section id="about_me" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<header class="major">
-											<h2>Bharat Puri</h2>
-										</header>
-										<p>
-											I am a final year student of New Horizon College of Engineering, Bangalore, India. I am qualified as a Computer Science Engineer and I hold a keen interest in Blockchain Technologies, Data Science and Artificial Intelligence.
-										</p>
-										<p>
-											Throughout my studies, I have gained a strong foundation in computer science and I am eager to continue building upon this knowledge.
-											I am dedicated to becoming a leading expert in my field, and I am determined to use my skills and expertise to extract valuable insights that can be used to improve everyday processes and solve real-world problems.
-											I am committed to staying up-to-date with the latest developments and advances in the field, and I am eager to continue learning and exploring new and exciting technologies. I am confident that my passion for my field, combined with my dedication and drive, will enable me to make a meaningful impact in the world.
-										</p>
-										<p>
-											I am currently working as a .NET Full-Stack Developer, I posses a very good hold on Angular as well.
-										</p>
-										<!-- <ul class="actions">
-											<li><a href="introduction.html" class="button">Learn More</a></li>
-										</ul> -->
-									</div>
-									<span class="image"><img src="images/Bharat Photo.jpg" alt="" /></span>
-								</div>
-							</section>
+        nav ul li a:hover {
+            color: #0f0; /* Green Hover Effect */
+            transform: scale(1.1);
+        }
 
-						<!-- Resume Section -->
-							<section id="resume" class="main special">
-								<header class="major">
-									<h2>Resume</h2>
-									<p>You can straight away download my resume if needed on handheld devices.</p>
-								</header>
-									<ul class="actions special">
-										<li><a href="/resume/Bharat Puri Resume.pdf" class="button" download=>Download Resume</a></li>
-									</ul>
-								</footer>
-							</section> 
+        /* Info Section */
+        .info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 10;
+        }
 
-						<!-- Project Section -->
-							<section id="projects" class="main special">
-								<header class="major">
-									<h2>Projects</h2>
-									<p>The repository link to the projects with a small brief about the projects is covered in this section</p>
-								</header>
-								<ul>
-									<li><b>Sentiment Analysis: </b>This project is based on FinBERT a pre-trained NLP, here I have analysed the yelp reviews of a particular restaurant. The values 5 to 1 are assigned to the reviews with 1 being the most positive and 5 being the most negative. The project  can be accessed by clicking on this link:  <b><a href="https://github.com/bharat856/BERT-Sentiment-Analysis">https://github.com/bharat856/BERT-Sentiment-Analysis</a></b></li>
-									<li><b>Pose Detection: </b>This project is based in OpenCV and Tensorflow where I have used MoveNet SinglePose Lightning Model. The project  can be accessed by clicking on this link:  <b><a href="https://github.com/bharat856/Pose-Detection">https://github.com/bharat856/Pose-Detection</a></b></li>
-									<li><b>Strivers SDE Sheet: </b>This is where the solutions to the SDE Sheet are available and the folder can be accessed by clicking on this link: <b><a href="https://github.com/bharat856/Strivers-Solutions">https://github.com/bharat856/Strivers-Solutions</a></b></li>
-									<br>
-									<label for="file"><a href="https://github.com/bharat856/Strivers-Solutions">Strivers SDE Solution Progress</a></label><progress id="file" value="2" max="191"> 1% </progress>
-								</ul>
-								<!-- <footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">Learn More</a></li>
-									</ul>
-								</footer> -->
-							</section>
+        h1 {
+            font-size: 3em;
+            color: white;
+        }
 
-						<!-- resources -->
-							<section id="reso" class="main special">
-								<header class="major">
-									<h2>Resources</h2>
-									<p>Here are all the resources that help me keep myself up to date with my fields of interest:</p>
-								</header>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="#about_me" class="button">Top</a></li>
-									</ul>
-								</footer>
-							</section>
+        p {
+            font-size: 1.5em;
+        }
 
-					</div>
+        a {
+            color: white;
+            text-decoration: none;
+        }
 
-				<!-- Footer -->
-				<footer id="footer">
-					<!-- <section>
-						<h2>Aliquam sed mauris</h2>
-						<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
-						</ul>
-					</section> -->
-					<section>
-						<h2>Bharat Puri</h2>
-						<dl class="alt">
-							<dt>Address</dt>
-							<dd>Bangalore &bull; Karnataka, Pincode:560076 &bull; India</dd>
-							<dt>Phone</dt>
-							<dd>+91-8296644426</dd>
-							<dt>Email</dt>
-							<dd><a href="mailto:puribharat2000@gmail.com">puribharat2000@gmail.com</a></dd>
-						</dl>
-						<ul class="icons">
-							<li><a href="https://github.com/bharat856" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-						</ul>
-					</section>
-					<p class="copyright">&copy;Design: <a href="#about_me">Bharat Puri</a>.</p>
-				</footer>
+        a:hover {
+            color: #0f0;
+        }
 
-			</div>
+        a:visited {
+            color: white;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        /* Responsive Navbar */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
 
-	</body>
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="aboutMe.html">About Me</a></li>
+			<li><a href="experience.html">Work Experience</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="resume.html">Resume</a></li>
+			<li><a href="resources.html"> Resources</a>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Info Section -->
+    <div class="info">
+        <h1>Bharat Puri</h1>
+        <p>Research Assistant @<a href="https://www.hdm-stuttgart.de/" target="_blank" rel="noopener noreferrer">Hochschule der Medien</a></p>
+        <p>Masters Student @<a href="https://www.uni-stuttgart.de/en/" target="_blank" rel="noopener noreferrer">University of Stuttgart</a></p>
+    </div>
+
+    <!-- Matrix Effect Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+        
+        // Set Canvas Size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Matrix Characters
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(0);
+        
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#0F0";
+            ctx.font = `${fontSize}px Courier New`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                ctx.fillText(text, x, y);
+                
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
 </html>

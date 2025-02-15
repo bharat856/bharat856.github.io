@@ -1,73 +1,155 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Bharat Puri</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
 
-<html>
-	<head>
-	    <title>Resume</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+        /* Canvas for Blueprint Glow Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        /* Navbar Styling */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            text-align: center;
+        }
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Resume</h1>
-					</header>
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        nav ul li {
+            flex: 1;
+        }
 
-						<!-- Content -->
-							<section id="content" class="main">
-							
-									<h1 class="page_title"><a href="index.html">Home</a></h1>
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
 
-                                <object data="/resume/Bharat Puri Resume.pdf" type="application/pdf" width="100%" height="1200px">
-                                    <p>Unable to display PDF file. <a href="/resume/Bharat Puri Resume.pdf">Download</a> instead.</p>
-                                  </object>
-							</section>
+        nav ul li a:hover {
+            color: #00bfff; /* Light Blue Hover Effect */
+            transform: scale(1.1);
+        }
 
-					</div>
+        /* Resume Section */
+        .resume-container {
+            padding: 120px 10%;
+            text-align: center;
+        }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<!-- <section>
-							<h2>Aliquam sed mauris</h2>
-							<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Learn More</a></li>
-							</ul>
-						</section> -->
-						<section>
-							<h2>Bharat Puri</h2>
-							<dl class="alt">
-								<dt>Address</dt>
-								<dd>Bangalore &bull; Karnataka, Pincode:560076 &bull; India</dd>
-								<dt>Phone</dt>
-								<dd>+91-8296644426</dd>
-								<dt>Email</dt>
-								<dd><a href="mailto:puribharat2000@gmail.com">puribharat2000@gmail.com</a></dd>
-							</dl>
-							<ul class="icons">
-								<li><a href="https://github.com/bharat856" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-							</ul>
-						</section>
-						<p class="copyright">&copy;Design: <a href="index.html">Bharat Puri</a>.</p>
-					</footer>
-			</div>
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        object {
+            border: 2px solid rgba(0, 191, 255, 0.8); /* Blueprint style glow */
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+            width: 100%;
+            height: 1200px;
+        }
+    </style>
+</head>
+<body>
 
-	</body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutMe.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Resume Section -->
+    <div class="resume-container">
+        <h1>Resume</h1>
+        <object data="/resume/Bharat Puri Resume.pdf" type="application/pdf">
+            <p>Unable to display PDF file. <a href="/resume/Bharat Puri Resume.pdf">Download</a> instead.</p>
+        </object>
+    </div>
+
+    <!-- Blueprint Glow Effect -->
+    <canvas id="blueprintCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("blueprintCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const blueprintLines = [];
+        
+        function createBlueprintLines() {
+            for (let i = 0; i < 20; i++) {
+                blueprintLines.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    length: Math.random() * 150 + 50,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    speed: Math.random() * 0.5 + 0.2,
+                });
+            }
+        }
+
+        function drawBlueprint() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = `rgba(0, 191, 255, 0.7)`;
+            ctx.lineWidth = 1.5;
+            
+            blueprintLines.forEach(line => {
+                ctx.beginPath();
+                ctx.moveTo(line.x, line.y);
+                ctx.lineTo(line.x + line.length, line.y);
+                ctx.stroke();
+                line.y += line.speed;
+                if (line.y > canvas.height) {
+                    line.y = -10;
+                    line.x = Math.random() * canvas.width;
+                    line.length = Math.random() * 150 + 50;
+                }
+            });
+
+            requestAnimationFrame(drawBlueprint);
+        }
+
+        createBlueprintLines();
+        drawBlueprint();
+    </script>
+</body>
 </html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Bharat Puri</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Canvas for Falling Code Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            flex: 1;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: orange;
+            transform: scale(1.1);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 120px 10%;
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 20px;
+            color: orange;
+        }
+
+        ul {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        li {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: orange;
+        }
+
+        a:visited {
+            color: white;
+        }
+
+        /* Responsive Layout */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .projects {
+                padding: 100px 5%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutMe.html">About</a></li>
+            <li><a href="experience.html">Work Experience</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Projects Section -->
+    <div class="projects">
+        <h1>Projects</h1>
+
+        <h2>Micrograd - Automatic Differentiation Engine</h2>
+        <ul>
+            <li>Developed a **Python-based micro autograd engine** that **automatically computes gradients**.</li>
+            <li>Implemented **backpropagation** using a computational graph to handle **complex derivatives.**</li>
+            <li>Enabled **dynamic computation graphs**, similar to PyTorch and TensorFlow.</li>
+            <li>Used for training small-scale **neural networks** with gradient descent.</li>
+        </ul>
+
+        <h2>Makemore - Character-Level Neural Networks</h2>
+        <ul>
+            <li>Designed an **autoregressive character-level model** that can **generate words & names.**</li>
+            <li>Built using **Recurrent Neural Networks (RNNs)** and **Transformer-based models.**</li>
+            <li>Implemented **token embeddings** and **self-attention mechanisms** for better text predictions.</li>
+            <li>Generated unique and creative **synthetic names** that resemble real-world patterns.</li>
+        </ul>
+
+        <h2>Small GPT - Miniature Transformer Model</h2>
+        <ul>
+            <li>Created a **lightweight GPT model** inspired by OpenAI’s GPT-3.</li>
+            <li>Utilized **self-attention & multi-head attention layers** for efficient text prediction.</li>
+            <li>Trained on **large text datasets** to produce **coherent sentence completions.**</li>
+            <li>Optimized for **low-power devices** with fewer parameters but high accuracy.</li>
+        </ul>
+
+        <h2>Deepfake Detection using Deep Learning</h2>
+        <ul>
+            <li>Developed an AI system that detects **deepfake images & videos** with **high accuracy.**</li>
+            <li>Trained using **Convolutional Neural Networks (CNNs)** with **EfficientNet**.</li>
+            <li>Implemented **GAN-based augmentation** to improve robustness to adversarial attacks.</li>
+            <li>Used **heatmaps and facial recognition patterns** to classify fake vs. real images.</li>
+        </ul>
+    </div>
+
+    <!-- Falling Code Effect -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Set Canvas Size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Programming Code Snippets (Python, JavaScript, C++)
+        const codeLines = [
+            "def train_model(data):", "for i in range(epochs):", "loss.backward()", "optimizer.step()",
+            "class NeuralNet:", "function predict(input) {", "console.log('Training...');",
+            "std::vector<int> data;", "while (true) { updateWeights(); }",
+            "if (x > y) { return predict(y); }", "double accuracy = computeAccuracy();"
+        ];
+
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(0);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)"; // Increased opacity for readability
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "orange"; // Orange code effect
+            ctx.font = `${fontSize}px Courier New`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = codeLines[Math.floor(Math.random() * codeLines.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.99) { // Slower effect
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 100); // Slower falling speed
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>

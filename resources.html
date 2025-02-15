@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources & Learning Journey</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            flex: 1;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: cyan;
+            transform: scale(1.1);
+        }
+
+        /* Content Section */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 22px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        .resources-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2em;
+        }
+        .resources-list li {
+            margin: 10px 0;
+        }
+        .resources-list a {
+            color: cyan;
+            text-decoration: none;
+        }
+        .resources-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Canvas for Neural Network */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="aboutMe.html">About Me</a></li>
+			<li><a href="experience.html">Work Experience</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Learning Resources Section -->
+    <div class="content">
+        <h1>Resources & Learning Journey</h1>
+        <p>These are some of the places from where I have gained knowledge.</p>
+        <ul class="resources-list">
+            <li><a href="https://www.coursera.org/" target="_blank">Coursera - AI & ML Courses</a></li>
+            <li><a href="https://mitpress.mit.edu/" target="_blank">MIT Press Books</a></li>
+            <li><a href="https://arxiv.org/" target="_blank">ArXiv - Research Papers</a></li>
+            <li><a href="https://github.com/" target="_blank">GitHub - Open Source Contributions</a></li>
+            <li><a href="https://www.udemy.com/" target="_blank">Udemy - Machine Learning Courses</a></li>
+        </ul>
+    </div>
+
+    <!-- Neural Network Effect -->
+    <canvas id="networkCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("networkCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        for (let i = 0; i < 50; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: Math.random() * 2 - 1,
+                vy: Math.random() * 2 - 1
+            });
+        }
+
+        function drawNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            nodes.forEach((node, index) => {
+                node.x += node.vx * 0.5;
+                node.y += node.vy * 0.5;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                ctx.fillStyle = "cyan";
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        ctx.strokeStyle = "rgba(0, 255, 255, 0.3)";
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawNetwork);
+        }
+        drawNetwork();
+    </script>
+</body>
+</html>
