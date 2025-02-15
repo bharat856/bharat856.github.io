@@ -15,7 +15,7 @@
             overflow-x: hidden;
         }
 
-        /* Canvas for Falling Code Effect */
+        /* Canvas for Particle Network */
         canvas {
             position: fixed;
             top: 0;
@@ -175,50 +175,78 @@
         </ul>
     </div>
 
-    <!-- Falling Code Effect -->
-    <canvas id="matrixCanvas"></canvas>
+    <!-- Particle Network Effect -->
+    <canvas id="particleCanvas"></canvas>
 
     <script>
-        const canvas = document.getElementById("matrixCanvas");
+        const canvas = document.getElementById("particleCanvas");
         const ctx = canvas.getContext("2d");
 
-        // Set Canvas Size
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Programming Code Snippets (Python, JavaScript, C++)
-        const codeLines = [
-            "def train_model(data):", "for i in range(epochs):", "loss.backward()", "optimizer.step()",
-            "class NeuralNet:", "function predict(input) {", "console.log('Training...');",
-            "std::vector<int> data;", "while (true) { updateWeights(); }",
-            "if (x > y) { return predict(y); }", "double accuracy = computeAccuracy();"
-        ];
+        const particles = [];
+        const particleCount = 100;
 
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(0);
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 2 + 1;
+                this.velocityX = (Math.random() - 0.5) * 2;
+                this.velocityY = (Math.random() - 0.5) * 2;
+            }
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.2)"; // Increased opacity for readability
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            update() {
+                this.x += this.velocityX;
+                this.y += this.velocityY;
 
-            ctx.fillStyle = "orange"; // Orange code effect
-            ctx.font = `${fontSize}px Courier New`;
+                if (this.x < 0 || this.x > canvas.width) this.velocityX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.velocityY *= -1;
+            }
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = codeLines[Math.floor(Math.random() * codeLines.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.99) { // Slower effect
-                    drops[i] = 0;
-                }
-                drops[i]++;
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "orange";
+                ctx.fill();
             }
         }
 
-        setInterval(drawMatrix, 100); // Slower falling speed
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = "rgba(255, 165, 0, 0.5)";
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        animateParticles();
 
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;

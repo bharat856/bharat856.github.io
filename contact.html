@@ -15,16 +15,9 @@
             font-family: 'Courier New', monospace;
         }
 
-        /* Canvas for Blue Matrix Effect */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
         /* Navbar Styling */
         nav {
-            background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
+            background-color: rgba(0, 0, 0, 0.9);
             padding: 15px 0;
             position: fixed;
             width: 100%;
@@ -50,15 +43,15 @@
         nav ul li a {
             text-decoration: none;
             color: white;
-            font-size: 20px; /* Ensure uniform font size */
+            font-size: 18px;
             font-weight: bold;
-            padding: 15px 20px; /* Proper spacing */
+            padding: 10px 20px;
             display: inline-block;
             transition: color 0.3s ease, transform 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: #00f; /* Blue Hover Effect */
+            color: cyan;
             transform: scale(1.1);
         }
 
@@ -69,7 +62,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             z-index: 10;
         }
@@ -77,36 +70,48 @@
         h1 {
             font-size: 3em;
             color: white;
+            text-shadow: 0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan;
+            animation: flicker 1.5s infinite alternate;
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 5px cyan, 0 0 10px cyan; }
+            50% { opacity: 0.8; text-shadow: 0 0 20px cyan, 0 0 30px cyan; }
+            100% { opacity: 1; text-shadow: 0 0 10px cyan, 0 0 20px cyan; }
         }
 
         p {
-            font-size: 1.5em;
+            font-size: 1.2em;
+            font-family: 'Courier New', monospace;
         }
 
         a {
             color: white;
             text-decoration: none;
+            font-family: 'Courier New', monospace;
         }
 
         a:hover {
-            color: #00f;
+            color: cyan;
         }
 
-        a:visited {
-            color: white;
+        /* Floating Bubbles Effect */
+        .bubble {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: floatBubble linear infinite;
         }
 
-        /* Responsive Navbar */
-        @media screen and (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                text-align: center;
-                padding: 10px 0;
-            }
+        @keyframes floatBubble {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
+
     </style>
 </head>
 <body>
@@ -116,64 +121,44 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="aboutMe.html">About Me</a></li>
-			<li><a href="experience.html">Work Experience</a></li>
+            <li><a href="experience.html">Work Experience</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="resume.html">Resume</a></li>
-			<li><a href="resources.html"> Resources</a>
+            <li><a href="resources.html">Resources</a></li>
         </ul>
     </nav>
 
     <!-- Info Section -->
     <div class="info">
-        <h1>Contact Me</h1>
-        <p>Email: <a href="mailto: puribharat2000@gmail.com">puribharat2000@gmail.com</a></p>
+        <h1>Let's Connect</h1>
+        <p>Email: <a href="mailto:puribharat2000@gmail.com">puribharat2000@gmail.com</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/bharat-puri-3324ab214/" target="_blank">Bharat Puri</a></p>
         <p>GitHub: <a href="https://github.com/bharat856" target="_blank">Bharat Puri</a></p>
     </div>
 
-    <!-- Blue Matrix Effect Canvas -->
-    <canvas id="matrixCanvas"></canvas>
-
+    <!-- Floating Bubbles -->
     <script>
-        const canvas = document.getElementById("matrixCanvas");
-        const ctx = canvas.getContext("2d");
-        
-        // Set Canvas Size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        // Matrix Characters
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(0);
-        
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = "#00F"; // Blue color for falling letters
-            ctx.font = `${fontSize}px Courier New`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-                ctx.fillText(text, x, y);
-                
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
+        function createBubbles() {
+            for (let i = 0; i < 30; i++) {
+                let bubble = document.createElement("div");
+                bubble.classList.add("bubble");
+                document.body.appendChild(bubble);
+
+                let size = Math.random() * 20 + 10;
+                let duration = Math.random() * 5 + 5;
+                let delay = Math.random() * 3;
+                let leftPosition = Math.random() * 100;
+
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${leftPosition}vw`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
             }
         }
-        
-        setInterval(drawMatrix, 50);
-        
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+
+        createBubbles();
     </script>
+
 </body>
 </html>

@@ -15,8 +15,8 @@
             overflow-x: hidden;
         }
 
-        /* Canvas for Falling Code Effect */
-        canvas {
+        /* 3D Effect Canvas */
+        #backgroundCanvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -121,7 +121,6 @@
                 padding: 100px 5%;
             }
         }
-
     </style>
 </head>
 <body>
@@ -130,10 +129,10 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="aboutMe.html">About</a></li>
+            <li><a href="aboutMe.html">About Me</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="resume.html">Resume</a></li>
-            <li><a href="resources.html">Resources</a></li>
+			<li><a href="resources.html"> Resources</a>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -166,48 +165,46 @@
         </ul>
     </div>
 
-    <!-- Falling Code Effect -->
-    <canvas id="matrixCanvas"></canvas>
-
+    <!-- 3D Wireframe Effect -->
+    <canvas id="backgroundCanvas"></canvas>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        const canvas = document.getElementById("matrixCanvas");
-        const ctx = canvas.getContext("2d");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("backgroundCanvas"), alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        // Set Canvas Size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Create Outer Wireframe
+        const outerGeometry = new THREE.IcosahedronGeometry(3, 1);
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+        const outerWireframe = new THREE.Mesh(outerGeometry, wireframeMaterial);
+        scene.add(outerWireframe);
 
-        // Matrix Characters
-        const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>/*+-=";
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(0);
+        // Create Inner Wireframe
+        const innerGeometry = new THREE.IcosahedronGeometry(1.5, 1);
+        const innerWireframe = new THREE.Mesh(innerGeometry, wireframeMaterial);
+        scene.add(innerWireframe);
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Slightly faded background
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        camera.position.z = 6;
 
-            ctx.fillStyle = "#FF0000"; // Bright Red for falling code effect
-            ctx.font = `${fontSize}px Courier New`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+        function animate() {
+            requestAnimationFrame(animate);
+            outerWireframe.rotation.x += 0.005;
+            outerWireframe.rotation.y += 0.007;
+            innerWireframe.rotation.x -= 0.008;
+            innerWireframe.rotation.y -= 0.005;
+            renderer.render(scene, camera);
         }
 
-        setInterval(drawMatrix, 50);
+        animate();
 
         window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
         });
     </script>
 
