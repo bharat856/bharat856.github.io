@@ -1,177 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bharat Puri</title>
-    <style>
-        /* General Page Styling */
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: black;
-            color: white;
-            font-family: 'Courier New', monospace;
-        }
-
-        /* Canvas for Matrix Effect */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Navbar Styling */
-        nav {
-            background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            flex: 1;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 20px;
-            display: inline-block;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #0f0; /* Green Hover Effect */
-            transform: scale(1.1);
-        }
-
-        /* Info Section */
-        .info {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            z-index: 10;
-        }
-
-        h1 {
-            font-size: 3em;
-            color: white;
-        }
-
-        p {
-            font-size: 1.5em;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #0f0;
-        }
-
-        a:visited {
-            color: white;
-        }
-
-        /* Responsive Navbar */
-        @media screen and (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                text-align: center;
-                padding: 10px 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bharat Puri is an Applied AI Engineer building production AI applications, agentic systems, and developer-facing products.">
+  <meta name="theme-color" content="#f5f5f2">
+  <title>Bharat Puri — Applied AI Engineer</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
-
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="aboutMe.html">About Me</a></li>
-			<li><a href="experience.html">Work Experience</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="resume.html">Resume</a></li>
-			<li><a href="resources.html"> Resources</a>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="Bharat Puri, home">BP<span>.</span></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button><span>Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-nav>
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Selected work</a><a href="#contact">Contact</a>
+      <a class="nav-resume" href="resume/BHARAT_PURI.pdf" target="_blank" rel="noopener">Résumé ↗</a>
     </nav>
-
-    <!-- Info Section -->
-    <div class="info">
-        <h1>Bharat Puri</h1>
-    <!-- <p>Research Assistant @<a href="https://www.hdm-stuttgart.de/" target="_blank" rel="noopener noreferrer">Hochschule der Medien</a></p> -->
-        <p>Masters Student @<a href="https://www.uni-stuttgart.de/en/" target="_blank" rel="noopener noreferrer">University of Stuttgart</a></p>
-    </div>
-
-    <!-- Matrix Effect Canvas -->
-    <canvas id="matrixCanvas"></canvas>
-
-    <script>
-        const canvas = document.getElementById("matrixCanvas");
-        const ctx = canvas.getContext("2d");
-        
-        // Set Canvas Size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        // Matrix Characters
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(0);
-        
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = "#0F0";
-            ctx.font = `${fontSize}px Courier New`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-                ctx.fillText(text, x, y);
-                
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrix, 50);
-        
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <p class="eyebrow reveal">Applied AI Engineer · Hamburg, Germany</p>
+      <h1 id="hero-title" class="reveal">I build AI systems that move from prototype to <em>production.</em></h1>
+      <div class="hero-bottom reveal"><p>LLMs, agentic AI, RAG, and full-stack product engineering—designed for real users and reliable deployment.</p><a class="circle-link" href="#about" aria-label="Continue to about section">↓</a></div>
+    </section>
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="section-label"><span>01</span> About</div>
+      <div class="section-body">
+        <h2 id="about-title" class="statement reveal">I’m Bharat, an engineer working where <em>applied AI</em> meets product.</h2>
+        <div class="about-grid reveal"><p>With 3+ years in software engineering, I build developer-facing systems and AI applications end to end—from problem definition and model evaluation to APIs, interfaces, and cloud deployment.</p><p>My current focus is production agentic AI: orchestrating LLMs, retrieval, tools, and voice experiences while keeping the surrounding software scalable, testable, and useful.</p></div>
+        <ul class="skills reveal" aria-label="Core skills">
+          <li><span>Applied AI</span> LLMs, Agentic AI, RAG, Tool Calling, Evaluation</li><li><span>Engineering</span> Python, C#/.NET, FastAPI, React, TypeScript, SQL</li><li><span>Platforms</span> Azure, AWS, GCP, Docker, Kubernetes, Terraform</li><li><span>Workflow</span> Codex, Claude Code, PyTorch, Scikit-learn, Git</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
+      <div class="section-label"><span>02</span> Experience</div>
+      <div class="section-body">
+        <h2 id="experience-title" class="visually-hidden">Professional experience</h2>
+        <article class="role reveal"><div class="role-meta"><p>Aug 2026—Present</p><p>Hamburg, Germany</p></div><div class="role-content"><p class="role-company">Rabot Energy</p><h3>Product Engineer AI</h3><p>Owning AI projects from requirements through production. Architected an agentic AI platform on Azure for a product serving 1M+ customers, integrating LLMs, RAG, tool calling, multi-intent orchestration, and voice AI.</p><ul class="tags" aria-label="Technologies"><li>Azure</li><li>C#/.NET</li><li>React</li><li>Kubernetes</li><li>Terraform</li></ul></div></article>
+        <article class="role reveal"><div class="role-meta"><p>Oct 2025—Aug 2026</p><p>Reutlingen, Germany</p></div><div class="role-content"><p class="role-company">Bosch Sensortec</p><h3>Working Student, Data Science &amp; Cloud Migration</h3><p>Developed and deployed time-aware anomaly detection and vision-language inspection systems, plus Dockerized computer vision and ML pipelines for production use.</p><ul class="tags" aria-label="Technologies"><li>Deep Learning</li><li>VLMs</li><li>Databricks</li><li>MLflow</li><li>Azure</li></ul></div></article>
+        <article class="role reveal"><div class="role-meta"><p>Apr 2025—Sep 2025</p><p>Reutlingen, Germany</p></div><div class="role-content"><p class="role-company">Cellforce Group GmbH (Porsche)</p><h3>Working Student, Data Scientist</h3><p>Built AI-powered web products for patent intelligence and production-note digitization, combining OpenAI APIs with full-stack applications and cloud data pipelines.</p><ul class="tags" aria-label="Technologies"><li>FastAPI</li><li>React</li><li>OpenAI APIs</li><li>PostgreSQL</li><li>AWS</li></ul></div></article>
+        <details class="more-roles reveal"><summary>Earlier experience <span>+</span></summary><article class="role compact"><div class="role-meta"><p>Mar 2025—Apr 2025</p><p>Stuttgart, Germany</p></div><div class="role-content"><p class="role-company">HdM Aquaware</p><h3>Research Assistant AI Lead</h3><p>Evaluated machine-learning models and built an automated GCP data-ingestion pipeline for experimental data.</p></div></article><article class="role compact"><div class="role-meta"><p>Feb 2023—Sep 2024</p><p>Bangalore, India</p></div><div class="role-content"><p class="role-company">Eurofins IT Solutions</p><h3>Associate Full Stack Software Engineer</h3><p>Developed C#/.NET backend services, REST APIs, and Angular and WPF applications across the full software development lifecycle.</p></div></article></details>
+      </div>
+    </section>
+    <section class="section selected-work" id="work" aria-labelledby="work-title">
+      <div class="section-label"><span>03</span> Selected work</div><div class="section-body"><h2 id="work-title" class="statement reveal">Research and systems built around <em>trustworthy AI.</em></h2><div class="work-grid">
+        <article class="work-card reveal"><div class="work-index">01 / Thesis</div><h3>LLM Fine-Tuning &amp; Evaluation</h3><p>Studying how controlled post-training distributions influence model behavior. Built automated evaluation pipelines and an LLM-as-a-Judge framework for consistent comparison across model variants.</p><ul class="tags"><li>LLMs</li><li>Fine-tuning</li><li>Evaluation</li></ul></article>
+        <article class="work-card inverse reveal"><div class="work-index">02 / Publication</div><h3>Analysis of Deepfake Detection Techniques</h3><p>Research into machine-learning methods for manipulated-media detection, the factors affecting accuracy, and the need for more robust media-verification systems.</p><a href="https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=Analysis%20of%20Deepfake%20Detection%20Techniques" target="_blank" rel="noopener">Find on IEEE Xplore ↗</a></article>
+      </div></div>
+    </section>
+    <section class="section education" aria-labelledby="education-title"><div class="section-label"><span>04</span> Education</div><div class="section-body" id="education-title"><div class="education-row reveal"><div><h2>Master of Science, Computer Science</h2><p>Universität Stuttgart</p></div><p>2024—2026</p></div><div class="education-row reveal"><div><h2>Bachelor of Technology, Computer Science</h2><p>New Horizon College of Engineering</p></div><p>2019—2023</p></div></div></section>
+    <section class="contact" id="contact" aria-labelledby="contact-title"><p class="eyebrow reveal">Have a thoughtful problem to solve?</p><h2 id="contact-title" class="reveal">Let’s build something <em>useful.</em></h2><div class="contact-links reveal"><a href="mailto:puribharat2000@gmail.com">Email me ↗</a><a href="https://www.linkedin.com/in/bharat-puri-3324ab214/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/bharat856" target="_blank" rel="noopener">GitHub ↗</a><a href="resume/BHARAT_PURI.pdf" target="_blank" rel="noopener">Résumé ↗</a></div></section>
+  </main>
+  <footer class="site-footer"><p>© <span data-year></span> Bharat Puri</p><a href="#top">Back to top ↑</a></footer>
 </body>
 </html>
